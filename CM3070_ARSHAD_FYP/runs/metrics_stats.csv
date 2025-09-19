@@ -1,3 +1,0 @@
-run_config,n_runs,rescued_mean,rescued_median,ttr_median_median,ttr_median_ci_lo,ttr_median_ci_hi,steps_mean,total_xy_disp_mean
-run_config_20250919T034634Z.json,1,1.0,1.0,29.0,29.0,29.0,381.0,24.154968284718407
-run_config_20250919T035159Z.json,1,0.0,0.0,,,,100.0,5.6013175782495885

@@ -1,3 +1,0 @@
-__file__,interrupted,n_casualties,rescued,run_config,run_seed,steps_done,total_xy_disp,ttr_median
-metrics_20250919T034718Z.json,True,3,1,run_config_20250919T034634Z.json,1009475961,381,24.154968284718407,29.0
-metrics_20250919T035159Z.json,False,1,0,run_config_20250919T035159Z.json,0,100,5.6013175782495885,
