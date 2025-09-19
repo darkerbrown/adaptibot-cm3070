@@ -1,0 +1,61 @@
+{
+  "model_path": "ppo_fix_continuous_action.cleanrl_model",
+  "viewer": {
+    "gui": false,
+    "render_mode": "rgb_array",
+    "max_fps": 0,
+    "show_rgb": false
+  },
+  "debug": {
+    "print_actuators": false,
+    "show_models": false
+  },
+  "terrain": {
+    "theme": "mixed",
+    "rubble_style": "cluster",
+    "rubble_max_parts": 30,
+    "rubble_draw_max": 40,
+    "draw_overlay": false,
+    "waypoint": {
+      "every_k": 6,
+      "max_parts": 80
+    }
+  },
+  "perception": {
+    "enabled": false,
+    "terrain_weights": null,
+    "difficulty_weights": null,
+    "every_k": 20,
+    "image_size": 224,
+    "use_terrain": false,
+    "use_difficulty": false
+  },
+  "control": {
+    "desired_angle_deg": 0.0,
+    "heading_bias": 0.0,
+    "drive_scale": 1.0,
+    "ppo_weight_go": 1.0,
+    "ppo_weight_turn": 1.0,
+    "turn_enter": 0.0,
+    "turn_exit": 0.0,
+    "turn_amp": 0.0,
+    "deterministic": true
+  },
+  "gait": {
+    "enabled": false,
+    "frequency": 2.0,
+    "hip_amplitude": 0.0,
+    "ankle_amplitude": 0.0,
+    "turn_gain": 0.0,
+    "hip_left_indices": [],
+    "hip_right_indices": []
+  },
+  "simulation": {
+    "steps": 100,
+    "n_casualties": 1,
+    "rescue_radius": 0.6,
+    "leg_radius": 0.2,
+    "pause_steps": 0,
+    "seed": 0
+  }
+}

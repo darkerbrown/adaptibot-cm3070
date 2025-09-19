@@ -1,0 +1,10 @@
+{
+  "rescued": 3,
+  "ttr_median": 422.0,
+  "steps_done": 1393,
+  "n_casualties": 3,
+  "total_xy_disp": 72.53691187673067,
+  "interrupted": false,
+  "run_seed": 272135025,
+  "run_config": "run_config_20250919T065354Z.json"
+}
