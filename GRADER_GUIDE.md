@@ -31,9 +31,10 @@ This guide is examiner-focused. It explains exactly how to run and grade the pro
 
 1. **Install dependencies**  
    ```powershell
-   python -m venv .venv
-   .\.venv\Scripts\Activate.ps1
-   pip install -r requirements.txt
+    py -3.10 -m venv .venv
+    .\.venv\Scripts\Activate.ps1
+    python -m pip install --upgrade pip
+    pip install -r requirements.txt
    ```
 
 2. **Smoke run (very short, verifies setup)**  
@@ -85,3 +86,4 @@ This guide is examiner-focused. It explains exactly how to run and grade the pro
 4. Skim `adaptibot/controller.py` to verify the loop and capture logic.
 
 Done.
+
