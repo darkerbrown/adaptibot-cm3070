@@ -68,8 +68,8 @@ This guide is examiner-focused. It explains exactly how to run and grade the pro
 ---
 
 ## Notes and Assumptions
-
-- No MuJoCo or GPU required. Runs headless with PyBullet.
+- GPU not required.
+- MuJoCo installs automatically with mujoco==3.3.5; no license setup needed.
 - Use `--render_mode rgb_array` for headless evaluation.
 - Reproducibility: pass a saved `--seed` to repeat behavior on the same machine.
 - Typical runtimes on CPU:
@@ -86,4 +86,5 @@ This guide is examiner-focused. It explains exactly how to run and grade the pro
 4. Skim `adaptibot/controller.py` to verify the loop and capture logic.
 
 Done.
+
 
