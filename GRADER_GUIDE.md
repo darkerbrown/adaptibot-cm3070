@@ -1,48 +1,87 @@
-Grader Guide — Ant Rescue
+# Grader Guide — Ant Rescue (Adaptibot CM3070)
 
-This short guide explains how to run and grade the Ant Rescue project without needing prior coding knowledge.
+This guide is examiner-focused. It explains exactly how to run and grade the project, what outputs to expect, and where to look in the code. No prior coding knowledge is assumed.
 
-Quick checks (recommended order)
+> Repo audited against https://github.com/darkerbrown/adaptibot-cm3070 on 20 Sep 2025 (SGT).
 
-1) Install dependencies (PowerShell):
+---
 
+## Repository Layout
 
-python -m venv .venv; .\.venv\Scripts\Activate.ps1; pip install -r requirements.txt
+- `adaptibot/` — core package
+  - `controller.py` — target selection, capture logic, action smoothing
+  - `policy.py`, `config.py`, `runtime.py`, `terrain.py`, `app.py`
+- `adaptibot_main.py` — launcher (imports `adaptibot.app:main`)
+- `scripts/` — helpers
+  - `smoke_run.py` — fast sanity check (writes to `runs/`)
+  - `aggregate.py` — collate JSON metrics
+  - `plot_results.py` — produce PNG charts
+- `tests/` — minimal integration tests
+  - `test_step_50.py`
+- `runs/` — auto-generated configs, metrics, CSVs, plots
+- `ppo_fix_continuous_action.cleanrl_model` — pretrained PPO checkpoint (at repo root)
+- `requirements.txt`, `requirements-locked.txt` — dependencies
+- `README.md`, `LICENSE`, `GRADER_GUIDE.md`
 
+> If you later move the checkpoint into `models/`, update the `--model` path accordingly.
 
-2) Smoke-run (very short, saves a run config and metrics):
+---
 
+## Quick Checks (Recommended Order)
 
-python scripts\smoke_run.py
+1. **Install dependencies**  
+   ```powershell
+   python -m venv .venv
+   .\.venv\Scripts\Activate.ps1
+   pip install -r requirements.txt
+   ```
 
+2. **Smoke run (very short, verifies setup)**  
+   ```powershell
+   python scripts\smoke_run.py
+   ```
+   Expected: completes without error and writes a run under `./runs/`:
+   - `./runs/<timestamp>/run_config.json`
+   - `./runs/<timestamp>/metrics.json`
 
-- Output: `runs/run_config_<TS>.json` and `runs/metrics_<TS>.json`.
-- Check the JSON files to see the exact run settings and the number of casualties rescued.
+3. **Deterministic headless run (single episode)**  
+   ```powershell
+   python adaptibot_main.py --render_mode rgb_array --seed 123 --steps 500 --model .\ppo_fix_continuous_action.cleanrl_model
+   ```
+   This produces an additional `./runs/<timestamp>/metrics.json` and optional plots if you then run:
+   ```powershell
+   python scripts\aggregate.py
+   python scripts\plot_results.py
+   ```
 
-3) Run experiments (several seeds) and aggregate results:
+---
 
+## What to Check While Grading
 
-python scripts\run_experiments.py --model ppo_fix_continuous_action.cleanrl_model --episodes 8 --base-seed 0
-python scripts\aggregate_runs.py
-python scripts\stats_analysis.py
+- **Configuration evidence**: each run folder has `run_config.json` with seed, steps, and flags.
+- **Metrics evidence**: `metrics.json` includes casualties rescued, median time‑to‑rescue (TTR), steps, displacement, and seed.
+- **Code transparency**: open `adaptibot/controller.py` for a plain-English description at the top and the main control loop.
+- **Documentation**: `README.md` plus this guide provide reproducibility instructions.
+- **Visual outputs**: `runs/plots/*.png` after `plot_results.py`.
 
+---
 
-- Outputs: `runs/experiments_<TS>.csv`, `runs/metrics_aggregated.csv`, `runs/metrics_stats.csv`, and PNG summary plots in `runs/`.
+## Notes and Assumptions
 
-What to check while grading
+- No MuJoCo or GPU required. Runs headless with PyBullet.
+- Use `--render_mode rgb_array` for headless evaluation.
+- Reproducibility: pass a saved `--seed` to repeat behavior on the same machine.
+- Typical runtimes on CPU:
+  - Smoke run: < 1 minute
+  - Single deterministic run (500 steps): ~1–3 minutes
 
-- `runs/` contains timestamped `run_config_*.json` and `metrics_*.json` files. Open a `run_config` to confirm the experiment parameters. Each metric JSON includes `rescued`, `ttr_median`, `steps_done`, `total_xy_disp`, and `run_seed`.
+---
 
-- Inspect `ant_rescue/controller.py` if you want to understand the main loop. The top of that file contains a plain-English explanation of the overall control flow.
+## Typical Grading Workflow
 
-- Look `README.md` for more context.
+1. Run `scripts/smoke_run.py`. Confirm `runs/<ts>/metrics.json` exists and `rescued > 0` or reasonable depending on seed.
+2. Run a deterministic headless run as above. Confirm new `metrics.json` and check fields.
+3. Aggregate and plot to generate `runs/plots/*.png`.
+4. Skim `adaptibot/controller.py` to verify the loop and capture logic.
 
-Notes and assumptions
-
-- If you don't have MuJoCo or a GPU available, run the scripts headless; the repo supports `render_mode=rgb_array` and headless runs.
-
-- Reproducibility: every run saves the `RunConfig` and the terrain `run_seed`. To reproduce a run exactly, pass the saved `simulation.seed` back to the CLI.
-
-Contact
-
-- If you want an analysis notebook with the exact figure-generation steps used for a paper, run `scripts/stats_analysis.py` or ask me to add a notebook that loads `runs/metrics_aggregated.csv` and produces publication-ready plots.
+Done.
