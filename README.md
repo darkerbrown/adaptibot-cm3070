@@ -23,8 +23,7 @@ scripts/
   smoke_run.py      # 5–10s sanity check
   aggregate.py      # Collate JSON metrics
   plot_results.py   # Produce simple PNG charts
-models/
-  ppo_fix_continuous_action.cleanrl_model  # Pre-trained PPO checkpoint
+ppo_fix_continuous_action.cleanrl_model  # Pre-trained PPO checkpoint
 tests/
   test_step_50.py   # Minimal integration test (rgb_array, 50 steps)
 ```
@@ -33,11 +32,11 @@ tests/
 
 ### 1) Environment
 ```bash
-# Python 3.10 recommended. Windows 10 tested.
+# Python 3.10. Windows 11 tested.
 
 # Create and activate a virtual environment (example: venv on Windows)
-python -m venv .venv
-. .venv/Scripts/activate
+py -3.10 -m venv .venv
+.\.venv\Scripts\Activate.ps1
 
 # Install runtime dependencies
 pip install -r requirements.txt
@@ -54,7 +53,7 @@ python scripts/smoke_run.py
 
 ### 3) Interactive Demo (GUI)
 ```bash
-python adaptibot_main.py --gui --model models/ppo_fix_continuous_action.cleanrl_model
+python adaptibot_main.py --gui --model ./ppo_fix_continuous_action.cleanrl_model
 
 # Use ESC to quit the viewer.
 # Casualties are red spheres. The ant rescues them sequentially.
@@ -69,7 +68,7 @@ python adaptibot_main.py --gui --model models/ppo_fix_continuous_action.cleanrl_
 ## Reproducibility
 ```bash
 # Deterministic headless evaluation
-python adaptibot_main.py --render_mode rgb_array --seed 123   --model models/ppo_fix_continuous_action.cleanrl_model --steps 500
+python adaptibot_main.py --render_mode rgb_array --seed 123   --model ./ppo_fix_continuous_action.cleanrl_model --steps 500
 
 # Aggregate metrics from ./runs/
 python scripts/aggregate.py
@@ -115,7 +114,7 @@ pip show mujoco gymnasium >NUL 2>&1 || pip install mujoco gymnasium
 
 # 2) Model not found
 # Ensure the checkpoint path is correct:
-python adaptibot_main.py --gui --model models/ppo_fix_continuous_action.cleanrl_model
+python adaptibot_main.py --gui --model ./ppo_fix_continuous_action.cleanrl_model
 
 # 3) Headless CI failing due to render
 python adaptibot_main.py --render_mode rgb_array --steps 50
