@@ -17,6 +17,9 @@ tensorboardX==2.6.4
 torch==2.5.1
 torchvision==0.20.1
 torchaudio==2.5.1
+imageio
+imageio-ffmpeg
+glfw
 
 # match the working box
 huggingface-hub==0.34.4
