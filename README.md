@@ -128,7 +128,12 @@ python adaptibot_main.py --render_mode rgb_array --steps 50
 ## Citations
 - Raffin et al., Stable-Baselines3.  
 - OpenAI Gym / Gymnasium, MuJoCo.  
-- CleanRL project for PPO training scripts and conventions.  
+- **Pretrained PPO gait**: sdpkjc, *Ant-v4-ppo_fix_continuous_action-seed3*, Hugging Face Hub.  
+  Source: https://huggingface.co/sdpkjc/Ant-v4-ppo_fix_continuous_action-seed3 
+- **ResNet-18** (baseline classifier): torchvision.models.resnet18, PyTorch Vision.  
+  Source: https://pytorch.org/vision/main/models/generated/torchvision.models.resnet18.html
+- **EfficientNet-B0** (baseline classifier): google, *efficientnet-b0*, Hugging Face Hub.  
+  Source: https://huggingface.co/google/efficientnet-b0 
 
 ## License
 MIT
